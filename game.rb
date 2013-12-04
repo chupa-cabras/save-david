@@ -4,6 +4,7 @@ require "hasu"
 Hasu.load "hero.rb"
 Hasu.load "food.rb"
 Hasu.load "junk_food.rb"
+Hasu.load "healthy_food.rb"
 
 class MainGame < Hasu::Window
 
@@ -36,17 +37,17 @@ class MainGame < Hasu::Window
       @player.down!
     end
     if button_down? Gosu::KbSpace  then
-      puts 'eat'
-      @player.eat_junk!
-      puts "x1 #{@player.x1}"
-      puts "x2 #{@player.x2}"
-      puts "y1 #{@player.y1}"
-      puts "y2 #{@player.y2}"
+      @foods << JunkFood.new(self, 1 + @foods.count / 10  )
+   
     end
 
     if Gosu.milliseconds / 5000 > @foods.count then
       @foods << JunkFood.new(self, 1 + @foods.count / 10  )
-      puts Gosu.milliseconds
+      @foods << HealthyFood.new(self,2)  if Random.new.rand(0..2).to_i == 1
+    end
+
+    if Gosu.milliseconds / 5000 > @foods.count then
+      @foods << HealthyFood.new(self,2)      
     end
 
     @foods.each do |f|

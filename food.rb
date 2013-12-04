@@ -58,10 +58,10 @@ class Food
     @angle = Gosu.angle(0, 0, -dx, dy)
   end
 
-  def x1; @x - SIZE/2; end
-  def x2; @x + SIZE/2; end
-  def y1; @y - SIZE/2; end
-  def y2; @y + SIZE/2; end
+  def x1; @x ; end
+  def x2; @x + SIZE; end
+  def y1; @y ; end
+  def y2; @y + SIZE; end
 
   def draw(window)
     color = Gosu::Color::RED
@@ -77,32 +77,15 @@ class Food
 
   def intersect?(hero)
 
-    hero_x1 = hero.x1 + (hero.size / 2)
-    hero_x2 = hero.x2 + (hero.size / 2)
-    hero_y1 = hero.y1
-    hero_y2 = hero.y2 + (hero.size)
+    point_x = hero.x + (hero.size / 2)
+    point_y = hero.y + (hero.size / 2)
+    variant = hero.size / 4
 
+    x1 - variant < point_x &&
+      x2 + variant > point_x &&
+      y1 - variant < point_y &&
+      y2 + variant > point_y
 
-
-
-    retorno = x1 < hero_x2 &&
-      x2 > hero_x1 &&
-      y1 < hero_y2 &&
-      y2 > hero_y1
-
-
-    if retorno then
-      puts "x1 #{hero.x1}"
-      puts "x2 #{hero.x2}"
-      puts "y1 #{hero.y1}"
-      puts "y2 #{hero.y2}"
-
-      puts "f x1 #{x1}"
-      puts "f x2 #{x2}"
-      puts "f y1 #{y1}"
-      puts "f y2 #{y2}"
-    end
-    retorno
   end
 
   def injested_by(hero)

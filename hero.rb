@@ -57,44 +57,23 @@ class Hero
     @frame += 0.2
     if @frame > 15 then @frame = 0 end
 
-    if @direction == :left then
-      offs_x = @size / 2
-      factor = 1.0
-    else
-      offs_x = -@size / 2
-      factor = -1.0
-    end
 
-    @y = MainGame::HEIGHT - @size  if @y > MainGame::HEIGHT - @size 
-    @x = MainGame::WIDTH - @size * 1.5   if @x > MainGame::WIDTH - @size * 1.5 
-    @y = 0 if @y < 0 
-    @x = -@size / 2 if @x < - @size / 2
 
     c = Gosu::Color.argb(255, 255, 255, 255)
 
-    
+    if @direction == :left then
+      @images[@frame].draw_as_quad(x1, y1, c, x2, y2, c, x3, y3, c, x4, y4, c, 2.0)
+    else
+      @images[@frame].draw_as_quad(x2, y2, c, x1, y1, c, x4, y4, c, x3, y3, c, 2.0)
+    end
 
-
-
-    @images[@frame].draw_as_quad(x1+ offs_x, y1, c, x2+ offs_x, y2, c, x3+ offs_x, y3, c, x4+ offs_x, y4, c, 2.0)
 
   end
 
-  def x1
-    return @x if @direction == :left
-    @x + @size  * 2
-  end
-
+  def x1; @x; end
   def x2; @x + @size; end
-  
-  def x3
-    return @x if @direction == :left 
-    @x + @size * 2 
-  end
-  
-  def x4
-    @x + @size  
-  end
+  def x3; @x; end
+  def x4; @x + @size; end
   
   def y1; @y; end
   def y2; @y; end

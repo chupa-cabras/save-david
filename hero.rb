@@ -1,14 +1,15 @@
 class Hero
   
 
-  attr_reader :x, :y, :weight, :frame, :direction, :size
+  attr_reader :x, :y, :weight, :frame, :direction, :size, :base_score
   
   def initialize(window)
-    @junk = Gosu::Sample.new(window, "assets/crush.ogg")
+    @junk = Gosu::Sample.new(window, "assets/bite.wav")
     @powerup = Gosu::Sample.new(window, "assets/powerup.wav")
     @x = MainGame::WIDTH/2
     @y = MainGame::HEIGHT/2
     @weight = 100
+    @base_score = 0
     @frame = 0
     @size = 32
     @direction = :left
@@ -52,17 +53,28 @@ class Hero
     @weight -= 2
     @size -= 2 
     @powerup.play
+    @base_score += 100
   end
 
   def exercise!
     @weight -= 0.01 if @weight > 70
     @size -= 0.01 if @size > 32
+    @base_score += 0.1
   end
 
   def draw(window)
     @frame += 0.2
     if @frame > 15 then @frame = 0 end
-    c = Gosu::Color.argb(255, 255, 255, 255)
+
+    variant = @weight - 100
+    variant = 200 if variant > 200
+    variant = 0 if variant < 0
+
+
+
+
+
+    c = Gosu::Color.argb(255, 255 , 255 - variant, 255 - variant)
 
     if @direction == :left then
       @images[@frame].draw_as_quad(x1, y1, c, x2, y2, c, x3, y3, c, x4, y4, c, 2.0)
@@ -81,5 +93,6 @@ class Hero
   def y2; @y; end
   def y3; @y + @size; end
   def y4; @y + @size; end
+
 
 end

@@ -1,12 +1,19 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    gosu (0.7.50)
-    hasu (0.1.4)
+    gosu (0.10.8)
+    hasu (0.1.5)
       gosu
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
+  gosu (~> 0.10.0)
   hasu
+
+RUBY VERSION
+   ruby 2.3.7p456
+
+BUNDLED WITH
+   1.17.3

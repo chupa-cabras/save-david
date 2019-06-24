@@ -19,7 +19,7 @@ class MainGame < Hasu::Window
   def reset
 
     self.caption = "Save David - The Game"
-    @background_image = Gosu::Image.new(self, "assets/ricepaper_V3.png", true)
+    @background_image = Gosu::Image.new(self, "assets/ricepaper_v3.png", true)
     @player = Hero.new(self)
     @foods = []
     @font = Gosu::Font.new(self, "Arial", 20)
